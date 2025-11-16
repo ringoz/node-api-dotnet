@@ -299,6 +299,9 @@ internal static class TestBuilder
 
         // Globalization data will not be used, even if available
         startInfo.Environment["DOTNET_SYSTEM_GLOBALIZATION_INVARIANT"] = "true";
+        
+        // https://github.com/microsoft/vscode-dotnettools/issues/2511
+        startInfo.Environment["DOTNET_DbgEnableMiniDump"] = "0";
 
         foreach (KeyValuePair<string, string> pair in testEnvironmentVariables)
         {
