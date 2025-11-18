@@ -99,6 +99,7 @@ public readonly partial struct JSIterable : IJSValue<JSIterable>, IEnumerable<JS
     static bool IJSValue<JSIterable>.CanCreateFrom(JSValue value)
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static bool CanCreateFrom(JSValue value)
 #pragma warning restore IDE0051
 #endif
@@ -119,6 +120,7 @@ public readonly partial struct JSIterable : IJSValue<JSIterable>, IEnumerable<JS
     static JSIterable IJSValue<JSIterable>.CreateUnchecked(JSValue value) => new(value);
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static JSIterable CreateUnchecked(JSValue value) => new(value);
 #pragma warning restore IDE0051
 #endif

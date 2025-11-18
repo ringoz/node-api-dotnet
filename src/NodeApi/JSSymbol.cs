@@ -103,6 +103,7 @@ public readonly struct JSSymbol : IJSValue<JSSymbol>
     static bool IJSValue<JSSymbol>.CanCreateFrom(JSValue value)
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static bool CanCreateFrom(JSValue value)
 #pragma warning restore IDE0051
 #endif
@@ -123,6 +124,7 @@ public readonly struct JSSymbol : IJSValue<JSSymbol>
     static JSSymbol IJSValue<JSSymbol>.CreateUnchecked(JSValue value) => new(value);
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static JSSymbol CreateUnchecked(JSValue value) => new(value);
 #pragma warning restore IDE0051
 #endif

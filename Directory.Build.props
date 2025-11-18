@@ -66,6 +66,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    <DefineConstants Condition=" '$(GenerateDocumentationFile)' != 'true' ">$(DefineConstants);UNMANAGED_DELEGATES</DefineConstants>
     <NetStandard>true</NetStandard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">

@@ -120,6 +120,7 @@ public readonly partial struct JSSet : IJSValue<JSSet>, ISet<JSValue>
     static bool IJSValue<JSSet>.CanCreateFrom(JSValue value)
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static bool CanCreateFrom(JSValue value)
 #pragma warning restore IDE0051
 #endif
@@ -140,6 +141,7 @@ public readonly partial struct JSSet : IJSValue<JSSet>, ISet<JSValue>
     static JSSet IJSValue<JSSet>.CreateUnchecked(JSValue value) => new(value);
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static JSSet CreateUnchecked(JSValue value) => new(value);
 #pragma warning restore IDE0051
 #endif

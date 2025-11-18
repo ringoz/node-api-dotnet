@@ -118,6 +118,7 @@ public readonly struct JSAbortSignal : IJSValue<JSAbortSignal>
     static bool IJSValue<JSAbortSignal>.CanCreateFrom(JSValue value)
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static bool CanCreateFrom(JSValue value)
 #pragma warning restore IDE0051
 #endif
@@ -138,6 +139,7 @@ public readonly struct JSAbortSignal : IJSValue<JSAbortSignal>
     static JSAbortSignal IJSValue<JSAbortSignal>.CreateUnchecked(JSValue value) => new(value);
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static JSAbortSignal CreateUnchecked(JSValue value) => new(value);
 #pragma warning restore IDE0051
 #endif

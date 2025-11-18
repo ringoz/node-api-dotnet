@@ -277,7 +277,7 @@ public class ModuleGenerator : SourceGenerator, ISourceGenerator
         s++;
         s += "#pragma warning disable CS1591 // Do not warn about missing doc comments in generated code.";
         s++;
-        s += "namespace Microsoft.JavaScript.NodeApi.Generated;";
+        s += "namespace Microsoft.JavaScript.NodeApi.Generated {";
         s++;
 
         string generatorName = typeof(ModuleGenerator).Assembly.GetName()!.Name!;
@@ -353,6 +353,7 @@ public class ModuleGenerator : SourceGenerator, ISourceGenerator
             GenerateInterfaceAdapter(ref s, interfaceSymbol, _marshaller);
         }
 
+        s += "}";
         s += "}";
 
         return s;

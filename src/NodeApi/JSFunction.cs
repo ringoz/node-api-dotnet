@@ -343,6 +343,7 @@ public readonly struct JSFunction : IJSValue<JSFunction>
     static bool IJSValue<JSFunction>.CanCreateFrom(JSValue value)
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static bool CanCreateFrom(JSValue value)
 #pragma warning restore IDE0051
 #endif
@@ -363,6 +364,7 @@ public readonly struct JSFunction : IJSValue<JSFunction>
     static JSFunction IJSValue<JSFunction>.CreateUnchecked(JSValue value) => new(value);
 #else
 #pragma warning disable IDE0051 // It is used by the IJSValueShim<T> class through reflection.
+    [Preserve]
     private static JSFunction CreateUnchecked(JSValue value) => new(value);
 #pragma warning restore IDE0051
 #endif
