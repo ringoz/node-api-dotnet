@@ -180,7 +180,7 @@ public static class NativeLibrary
     [DllImport("dl", EntryPoint = "dlerror")]
     private static extern nint dlerror1();
 
-    [DllImport("__Internal", EntryPoint = "node_dlerror")]
+    [DllImport("libdl.so.2", EntryPoint = "dlerror")]
     private static extern nint dlerror2();
 
     private delegate nint DlOpenDelegate(string? fileName, int flags);
@@ -217,7 +217,7 @@ public static class NativeLibrary
     [DllImport("dl", EntryPoint = "dlopen")]
     private static extern nint dlopen1(string? fileName, int flags);
 
-    [DllImport("__Internal", EntryPoint = "node_dlopen")]
+    [DllImport("libdl.so.2", EntryPoint = "dlopen")]
     private static extern nint dlopen2(string? fileName, int flags);
 
     private delegate nint DlSymDelegate(nint handle, string symbol);
@@ -254,7 +254,7 @@ public static class NativeLibrary
     [DllImport("dl", EntryPoint = "dlsym")]
     private static extern nint dlsym1(nint handle, string symbol);
 
-    [DllImport("__Internal", EntryPoint = "node_dlsym")]
+    [DllImport("libdl.so.2", EntryPoint = "dlsym")]
     private static extern nint dlsym2(nint handle, string symbol);
 
     private const int RTLD_LAZY = 1;
