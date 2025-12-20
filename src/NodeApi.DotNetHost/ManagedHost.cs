@@ -15,10 +15,6 @@ using Microsoft.JavaScript.NodeApi.Interop;
 using Microsoft.JavaScript.NodeApi.Runtime;
 using static Microsoft.JavaScript.NodeApi.Runtime.JSRuntime;
 
-#if !NET7_0_OR_GREATER
-using NativeLibrary = Microsoft.JavaScript.NodeApi.Runtime.NativeLibrary;
-#endif
-
 #if !(NETFRAMEWORK || NETSTANDARD)
 using System.Runtime.Loader;
 #endif
@@ -547,7 +543,9 @@ public sealed class ManagedHost : JSEventEmitter, IDisposable
                 // This might be a native DLL, not a managed assembly.
                 // Load the native library, which enables it to be auto-resolved by
                 // any later DllImport operations for the same library name.
+#if !NETSTANDARD
                 NativeLibrary.Load(assemblyFilePath);
+#endif
                 return null;
             }
             catch (FileNotFoundException fnfex)
