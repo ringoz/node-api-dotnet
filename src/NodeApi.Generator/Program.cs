@@ -279,6 +279,9 @@ public static class Program
     {
         [DataMember(Name = "type")]
         public string? Type { get; set; }
+
+        [DataMember(Name = "unity")]
+        public string? Unity { get; set; }
     }
 
 #endif
@@ -289,17 +292,21 @@ public static class Program
         try
         {
             string? packageModuleType;
+            string? packageUnityVersion;
 
 #if NETFRAMEWORK || NETSTANDARD
             var serializer = new DataContractJsonSerializer(typeof(PackageJson));
             using Stream fileStream = File.OpenRead(packageJsonPath);
             PackageJson packageJson = (PackageJson)serializer.ReadObject(fileStream);
             packageModuleType = packageJson.Type;
+            packageUnityVersion = packageJson.Unity;
 #else
             using Stream fileStream = File.OpenRead(packageJsonPath);
             JsonDocument json = JsonDocument.Parse(fileStream);
             packageModuleType = json.RootElement.TryGetProperty(
                 "type", out JsonElement moduleElement) ? moduleElement.GetString() : null;
+            packageUnityVersion = json.RootElement.TryGetProperty(
+                "unity", out JsonElement unityElement) ? unityElement.GetString() : null;
 #endif
 
             // https://nodejs.org/api/packages.html#type
@@ -309,6 +316,8 @@ public static class Program
             }
             else if (packageModuleType == "module")
             {
+                if (packageUnityVersion != null)
+                    return TypeDefinitionsGenerator.ModuleType.UnityJS;
                 return TypeDefinitionsGenerator.ModuleType.ES;
             }
             else

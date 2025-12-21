@@ -44,6 +44,7 @@ public class TypeDefinitionsGenerator : SourceGenerator
         None,
         CommonJS,
         ES,
+        UnityJS
     }
 
     private enum AssemblyType
@@ -90,6 +91,14 @@ function importAotModule(moduleName) {
     dlopen(module, moduleFilePath);
     return module.exports;
 }";
+    /// <summary>
+    /// JavaScript (not TypeScript) code that is emitted to a `.js` file alongside the `.d.ts`.
+    /// Enables application code to load an assembly (containing explicit JS exports) as an ES
+    /// module, along with type definitions, in one simple import statement.
+    /// </summary>
+    private const string LoadModuleUJS = @"
+const browser = (typeof window !== 'undefined');
+const exports = (await import(browser ? './index-web.js' : './index-node.js')).default;";
     /// <summary>
     /// JavaScript (not TypeScript) code that is emitted to a `.js` file alongside the `.d.ts`.
     /// Enables application code to load an assembly (containing explicit JS exports) as a CommonJS
@@ -493,7 +502,7 @@ dotnet.load(assemblyName);";
                 isSystemAssembly ? AssemblyType.SystemAssembly : AssemblyType.ApplicationAssembly,
             targetFramework);
 
-        if (_isModule && moduleType == ModuleType.ES)
+        if (_isModule && (moduleType == ModuleType.ES || moduleType == ModuleType.UnityJS))
         {
             // Declare ES module exports.
 
@@ -524,7 +533,7 @@ dotnet.load(assemblyName);";
                         isFirstMember = false;
                     }
 
-                    s += $"export const {exportName} = exports.{exportName};";
+                    s += $"export const {exportName} = exports['{exportName}'];";
                 }
             }
 
@@ -547,6 +556,7 @@ dotnet.load(assemblyName);";
         {
             (ModuleType.CommonJS, AssemblyType.JSModule) => LoadModuleCJS,
             (ModuleType.ES, AssemblyType.JSModule) => LoadModuleMJS,
+            (ModuleType.UnityJS, AssemblyType.JSModule) => LoadModuleUJS,
             (ModuleType.CommonJS, AssemblyType.ApplicationAssembly) => LoadAssemblyCJS,
             (ModuleType.ES, AssemblyType.ApplicationAssembly) => LoadAssemblyMJS,
             (ModuleType.CommonJS, AssemblyType.SystemAssembly) => LoadSystemAssemblyCJS,
