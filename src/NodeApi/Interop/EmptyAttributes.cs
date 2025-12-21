@@ -74,6 +74,17 @@ namespace System.Runtime.CompilerServices
     }
 }
 
+namespace System.Runtime.InteropServices
+{
+    [AttributeUsage(AttributeTargets.Method, Inherited = false)]
+    public sealed class UnmanagedCallersOnlyAttribute : Attribute
+    {
+        public UnmanagedCallersOnlyAttribute() { }
+        public Type[]? CallConvs;
+        public string? EntryPoint;
+    }
+}
+
 namespace System.Diagnostics
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = false)]
