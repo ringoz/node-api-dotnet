@@ -543,7 +543,7 @@ public sealed class ManagedHost : JSEventEmitter, IDisposable
                 // This might be a native DLL, not a managed assembly.
                 // Load the native library, which enables it to be auto-resolved by
                 // any later DllImport operations for the same library name.
-#if !NETSTANDARD
+#if !NETFRAMEWORK && !NETSTANDARD
                 NativeLibrary.Load(assemblyFilePath);
 #endif
                 return null;
