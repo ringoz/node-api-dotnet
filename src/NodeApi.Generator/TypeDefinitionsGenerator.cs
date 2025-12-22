@@ -505,6 +505,12 @@ dotnet.load(assemblyName);";
         if (_isModule && (moduleType == ModuleType.ES || moduleType == ModuleType.UnityJS))
         {
             // Declare ES module exports.
+            if (moduleType == ModuleType.UnityJS)
+            {
+                s += "export default exports;";
+                s++;
+                s += "export const {";
+            }
 
             bool isFirstMember = true;
             bool hasDefaultExport = false;
@@ -519,6 +525,12 @@ dotnet.load(assemblyName);";
                         DiagnosticId.ESModulePropertiesAreConst,
                         $"Module-level property '{exportName}' with setter will be " +
                         "exported as read-only because ES module properties are constant.");
+                }
+
+                if (moduleType == ModuleType.UnityJS)
+                {
+                    s += $"{exportName},";
+                    continue;
                 }
 
                 if (exportName == "default")
@@ -537,6 +549,9 @@ dotnet.load(assemblyName);";
                 }
             }
 
+            if (moduleType == ModuleType.UnityJS)
+                s += "} = exports;";
+            else
             if (hasDefaultExport)
             {
                 s++;
