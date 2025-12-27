@@ -97,8 +97,8 @@ function importAotModule(moduleName) {
     /// module, along with type definitions, in one simple import statement.
     /// </summary>
     private const string LoadModuleUJS = @"
-const browser = (typeof window !== 'undefined');
-const exports = (await import(browser ? './index-web.js' : './index-node.js')).default;";
+const suffix = (typeof window !== 'undefined') ? 'web' : 'node';
+const { default: exports } = await import(`./index-${suffix}.js`);";
     /// <summary>
     /// JavaScript (not TypeScript) code that is emitted to a `.js` file alongside the `.d.ts`.
     /// Enables application code to load an assembly (containing explicit JS exports) as a CommonJS
