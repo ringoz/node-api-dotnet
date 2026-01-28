@@ -312,12 +312,12 @@ public static class Program
             // https://nodejs.org/api/packages.html#type
             if (packageModuleType == null || packageModuleType == "commonjs")
             {
+                if (packageUnityVersion != null)
+                    return TypeDefinitionsGenerator.ModuleType.UnityJS;
                 return TypeDefinitionsGenerator.ModuleType.CommonJS;
             }
             else if (packageModuleType == "module")
             {
-                if (packageUnityVersion != null)
-                    return TypeDefinitionsGenerator.ModuleType.UnityJS;
                 return TypeDefinitionsGenerator.ModuleType.ES;
             }
             else
