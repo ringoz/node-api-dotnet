@@ -1336,7 +1336,7 @@ public class TracingJSRuntime : JSRuntime
         napi_value resultValue = default;
         napi_status status = TraceCall(
             [time.ToString()],
-            () => (_runtime.CreateNumber(env, time, out resultValue), Format(env, resultValue)));
+            () => (_runtime.CreateDate(env, time, out resultValue), Format(env, resultValue)));
         result = resultValue;
         return status;
     }
