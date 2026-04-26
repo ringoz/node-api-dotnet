@@ -87,7 +87,7 @@ internal static class ExpressionExtensions
                 {
                     ExpressionType.Assign => " = ",
                     ExpressionType.Equal => " == ",
-                    ExpressionType.NotEqual => " == ",
+                    ExpressionType.NotEqual => " != ",
                     ExpressionType.Coalesce => " ??\n",
                     _ => throw new NotImplementedException(
                         $"Binary operator not implemented: {binary.NodeType} at {path}")
