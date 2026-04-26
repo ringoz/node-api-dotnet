@@ -337,10 +337,10 @@ public unsafe partial class NodejsRuntime
 
     public override napi_status IsBuffer(napi_env env, napi_value value, out bool result)
     {
-        fixed (bool* result_ptr = &result)
-        {
-            return napi_is_buffer(env, value, (nint)result_ptr);
-        }
+        c_bool resultBool = default;
+        napi_status status = napi_is_buffer(env, value, (nint)(&resultBool));
+        result = (bool)resultBool;
+        return status;
     }
 
     [DllImport("__Internal")]
