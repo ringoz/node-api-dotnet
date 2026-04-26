@@ -2065,11 +2065,11 @@ public class TracingJSRuntime : JSRuntime
             tracedProperties[i] = properties[i];
             if (properties[i].getter == new napi_callback(JSValue.s_invokeJSGetter))
             {
-                tracedProperties[i].method = new napi_callback(s_traceGetterCallback);
+                tracedProperties[i].getter = new napi_callback(s_traceGetterCallback);
             }
             if (properties[i].setter == new napi_callback(JSValue.s_invokeJSSetter))
             {
-                tracedProperties[i].method = new napi_callback(s_traceSetterCallback);
+                tracedProperties[i].setter = new napi_callback(s_traceSetterCallback);
             }
             if (properties[i].method == new napi_callback(JSValue.s_invokeJSMethod))
             {
