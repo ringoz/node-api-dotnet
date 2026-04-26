@@ -1455,6 +1455,11 @@ public readonly struct JSValue : IJSValue<JSValue>
             using var scope = new JSValueScope(JSValueScopeType.Callback);
             ((Action)gcHandle.Target!)();
         }
+        catch
+        {
+            // Suppress exceptions from user finalizer actions to prevent
+            // crashing the finalizer thread.
+        }
         finally
         {
             context.FreeGCHandle(gcHandle);
