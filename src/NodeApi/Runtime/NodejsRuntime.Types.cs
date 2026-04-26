@@ -131,7 +131,7 @@ public unsafe partial class NodejsRuntime
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate napi_value Delegate(napi_env env, napi_value exports);
 
-        public napi_addon_register_func(napi_async_cleanup_hook.Delegate callback)
+        public napi_addon_register_func(napi_addon_register_func.Delegate callback)
             : this(Marshal.GetFunctionPointerForDelegate(callback)) { }
     }
 
