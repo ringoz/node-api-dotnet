@@ -292,7 +292,7 @@ public class ModuleGenerator : SourceGenerator, ISourceGenerator
         s += "private static JSValueScope _moduleScope;";
 
         // The unmanaged entrypoint is used only when the AOT-compiled module is loaded.
-        s += "#if !NETFRAMEWORK";
+        s += "#if !NETFRAMEWORK && !NAPI_SKIP_MODULE_EXPORT";
         s += $"[UnmanagedCallersOnly(EntryPoint = \"{ModuleRegisterFunctionName}\")]";
         s += "[Preserve]";
         s += $"public static napi_value _{ModuleInitializeMethodName}(napi_env env, napi_value exports)";
